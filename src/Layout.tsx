@@ -1,8 +1,7 @@
 import { PropsWithChildren } from 'react'
 const Layout = ({children}:PropsWithChildren) => {
-  // TODO styling
   return (
-    <div className=''>
+    <div className='flex flex-col w-full sm:flex-row'>
       {children}
     </div>
   )
