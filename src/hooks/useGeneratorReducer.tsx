@@ -1,6 +1,6 @@
 import { generateCode } from "@/lib/codeGenerator";
 import { PropType } from "@/providers/Generator";
-import { GeneratorContextType } from "@/providers/GeneratorProvider";
+import { DISABLES_OTHERS_STR_TYPES, GeneratorContextType } from "@/providers/GeneratorProvider";
 import { useReducer } from "react";
 
 export type ACTION = {

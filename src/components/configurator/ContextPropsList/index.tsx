@@ -4,6 +4,8 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { useGenerator } from '@/providers/GeneratorProvider';
 import { Plus } from 'lucide-react';
 import React from 'react'
+import ContextPropField from './ContextPropField';
+import { Separator } from '@/components/ui/separator';
 
 const ContextPropsList = () => {
   const {contextProps,dispatch} = useGenerator();
@@ -15,15 +17,28 @@ const ContextPropsList = () => {
       }
     )
   };
-  // TODO Dodelej Field Component
   return (
-    <div className='flex flex-col gap-1.5'>
+    <div className='flex flex-col gap-1.5 h-full'>
       <Label>
         Context Properties
       </Label>
-      <ScrollArea className='max-h-96 w-full rounded-md border flex flex-col p-2 relative'>
-        {contextProps.map((prop,index) => (<></>))}
-        {contextProps.length === 0 && <p className='text-gray-400 text-sm w-full text-center'>No context properties</p>}
+      <ScrollArea className=' w-full rounded-md border flex flex-col p-2'>
+        {contextProps.map((_,index) => {
+          if(index == contextProps.length - 1){
+            return (
+              <>
+                <ContextPropField index={index} key={index} />
+              </>
+            )
+          }
+          return (
+            <>
+              <ContextPropField index={index} key={index} />
+              <Separator/>
+            </>
+          )
+        })}
+        {contextProps.length === 0 && <span className='text-gray-400 text-sm w-full text-center h-12 flex justify-center items-center'><p>No context properties</p></span>}
         <ScrollBar orientation='horizontal'/>
       </ScrollArea>
       <Button variant={"outline"} onClick={handleAddProp}>

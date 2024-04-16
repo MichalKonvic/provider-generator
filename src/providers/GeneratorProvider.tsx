@@ -1,5 +1,5 @@
 import {useContext,createContext, PropsWithChildren} from 'react';
-import { PropType } from './Generator';
+import { PropType, StringPrimitiveType } from './Generator';
 import { ACTION, useGeneratorReducer } from '@/hooks/useGeneratorReducer';
 
 
@@ -21,6 +21,8 @@ const initialData:GeneratorContextType ={
   dispatch: () => {}
 };
 
+export const POSSIBLE_STR_PRIMITIVE_TYPES:StringPrimitiveType[] = ['string','number','boolean','bigint','symbol','null','undefined','any','unknown','never'];
+export const DISABLES_OTHERS_STR_TYPES = ['any','unknown','never'];
 
 const GeneratorContext = createContext(initialData);
 

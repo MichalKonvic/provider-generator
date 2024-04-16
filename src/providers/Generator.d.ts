@@ -10,6 +10,6 @@ export type PropType = {
   name: string;
   required: boolean;
   type: "custom";
-  isArray: boolean;
+  isArray: boolean;// Ignored in code generation
   value: string; // Custom user defined type
 }
