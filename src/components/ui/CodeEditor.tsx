@@ -1,6 +1,6 @@
 import { Editor, EditorProps, useMonaco } from "@monaco-editor/react"
 import { getWorker, MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useTheme } from "../theme-provider";
 interface Props {
   width?: string | number;

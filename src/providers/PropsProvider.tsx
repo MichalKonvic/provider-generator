@@ -1,6 +1,5 @@
-import { createContext, Dispatch, PropsWithChildren, useContext } from "react";
+import { createContext, PropsWithChildren, useContext } from "react";
 import { PropType } from "./Configurator";
-import { CONFIGURATOR_ACTION } from "@/hooks/useConfiguratorReducer";
 import { useConfigurator } from "./ConfiguratorProvider";
 
 export type propsType = "context"|"provider";
