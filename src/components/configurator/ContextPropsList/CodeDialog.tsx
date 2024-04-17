@@ -2,8 +2,8 @@ import CodeEditor from '@/components/CodeEditor'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
-import { PropType } from '@/providers/Generator'
-import { useGenerator } from '@/providers/GeneratorProvider'
+import { PropType } from '@/providers/Configurator'
+import { useConfigurator } from '@/providers/ConfiguratorProvider'
 import { CircleHelp, Info } from 'lucide-react'
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 import ExampleTooltip from './ExampleTooltip'
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const CodeDialog = ({index,children}:PropsWithChildren<Props>) => {
-  const {dispatch,contextProps} = useGenerator();
+  const {dispatch,contextProps} = useConfigurator();
   const prop = contextProps[index];
   const [open, setOpen] = useState(false);
   const [code, setCode] = useState(prop.type === "custom" ? prop.value : "");

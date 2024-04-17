@@ -1,14 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { useGenerator } from '@/providers/GeneratorProvider';
+import { useConfigurator } from '@/providers/ConfiguratorProvider';
 import { Plus } from 'lucide-react';
 import React from 'react'
 import ContextPropField from './ContextPropField';
 import { Separator } from '@/components/ui/separator';
 
 const ContextPropsList = () => {
-  const {contextProps,dispatch} = useGenerator();
+  const {contextProps,dispatch} = useConfigurator();
   const handleAddProp = () => {
     dispatch(
       {

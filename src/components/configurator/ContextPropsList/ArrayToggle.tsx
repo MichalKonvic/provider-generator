@@ -1,6 +1,6 @@
 import { Toggle } from "@/components/ui/toggle";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useGenerator } from "@/providers/GeneratorProvider";
+import { useConfigurator } from "@/providers/ConfiguratorProvider";
 import { Brackets } from "lucide-react";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 }
 
 const ArrayToggle = ({index}:Props) => {
-  const {contextProps,dispatch} = useGenerator();
+  const {contextProps,dispatch} = useConfigurator();
   const prop = contextProps[index];
   const disabled = prop.type === "custom";
   const handleChange = () => {

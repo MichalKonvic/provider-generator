@@ -1,13 +1,13 @@
 import { DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu"
-import { PropType, StringPrimitiveType } from "@/providers/Generator"
-import { DISABLES_OTHERS_STR_TYPES, useGenerator } from "@/providers/GeneratorProvider"
+import { PropType, StringPrimitiveType } from "@/providers/Configurator"
+import { DISABLES_OTHERS_STR_TYPES, useConfigurator } from "@/providers/ConfiguratorProvider"
 
 interface Props {
   name: StringPrimitiveType
   index: number
 }
 const TypeSelectPrimitiveItem = ({name,index}: Props) => {
-  const {contextProps,dispatch} = useGenerator();
+  const {contextProps,dispatch} = useConfigurator();
   const prop = contextProps[index];
   const disablesOthers = DISABLES_OTHERS_STR_TYPES.includes(name);
   const isPropPrimitive = prop.type === "primitive";

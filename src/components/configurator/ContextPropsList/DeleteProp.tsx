@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useGenerator } from '@/providers/GeneratorProvider';
+import { useConfigurator } from '@/providers/ConfiguratorProvider';
 import { Trash2 } from 'lucide-react';
 import React from 'react'
 
@@ -7,7 +7,7 @@ type Props = {
   index: number
 }
 const DeleteProp = ({index}:Props) => {
-  const {contextProps,dispatch} = useGenerator();
+  const {contextProps,dispatch} = useConfigurator();
   const handleDelete = () => {
     dispatch({
       set: "contextProps",

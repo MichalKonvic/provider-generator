@@ -1,6 +1,6 @@
 import { Editor, EditorProps, useMonaco } from "@monaco-editor/react"
 import { getWorker, MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useTheme } from "./theme-provider";
 interface Props {
   width?: string | number;
@@ -23,6 +23,7 @@ const CodeEditor = ({
 }:Props) => {
   const edit = useMonaco();
   const {isDark} = useTheme();
+  const theme = useMemo(() => isDark ? "dark" : "light" + (asDialog ? "-dialog" : ""),[asDialog,isDark]);
   const handleEditorDidMount = useCallback((editor: any, monaco: any) => {
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
       jsx: monaco.languages.typescript.JsxEmit.Preserve,
@@ -52,42 +53,40 @@ const CodeEditor = ({
 
     return dispose;
   }, []);
-  useEffect(() => {
-    if(edit){
-      edit.editor.defineTheme('light', {
-        base: 'vs',
-        inherit: true,
-        rules: [],
-        colors: {
-          'editor.background': '#ffffff',
-        },
-      });
-      edit.editor.defineTheme('dark', {
-        base: 'vs-dark',
-        inherit: true,
-        rules: [],
-        colors: {
-          'editor.background': '#09090B',
-        },
-      });
-      edit.editor.defineTheme('dark-dialog', {
-        base: 'vs-dark',
-        inherit: true,
-        rules: [],
-        colors: {
-          'editor.background': '#0a0a0a',
-        },
-      });
-      edit.editor.defineTheme('light-dialog', {
-        base: 'vs',
-        inherit: true,
-        rules: [],
-        colors: {
-          'editor.background': '#ffffff',
-        },
-      });
-    }
-  },[edit]);
+  if(edit){
+    edit.editor.defineTheme('light', {
+      base: 'vs',
+      inherit: true,
+      rules: [],
+      colors: {
+        'editor.background': '#ffffff',
+      },
+    });
+    edit.editor.defineTheme('dark', {
+      base: 'vs-dark',
+      inherit: true,
+      rules: [],
+      colors: {
+        'editor.background': '#09090B',
+      },
+    });
+    edit.editor.defineTheme('dark-dialog', {
+      base: 'vs-dark',
+      inherit: true,
+      rules: [],
+      colors: {
+        'editor.background': '#0a0a0a',
+      },
+    });
+    edit.editor.defineTheme('light-dialog', {
+      base: 'vs',
+      inherit: true,
+      rules: [],
+      colors: {
+        'editor.background': '#ffffff',
+      },
+    });
+  }
   return (
     <Editor
       defaultLanguage="typescript"
@@ -107,7 +106,7 @@ const CodeEditor = ({
       width={width}
       className={className}
       height={height}
-      theme={isDark ? 'dark' : 'light' + (asDialog ? '-dialog' : '')}
+      theme={theme}
       onChange={(str) => onChange && onChange(str)}
       value={value}
     />

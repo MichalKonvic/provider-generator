@@ -1,18 +1,18 @@
 import {useContext,createContext, PropsWithChildren} from 'react';
-import { PropType, StringPrimitiveType } from './Generator';
-import { ACTION, useGeneratorReducer } from '@/hooks/useGeneratorReducer';
+import { PropType, StringPrimitiveType } from './Configurator';
+import { CONFIGURATOR_ACTION, useConfiguratorReducer } from '@/hooks/useConfiguratorReducer';
 
 
-export interface GeneratorContextType {
+export interface ConfiguratorContextType {
   name: string;
   contextProps:PropType[];
   providerProps:PropType[];
   initialValue: unknown;
-  dispatch: React.Dispatch<ACTION>;
+  dispatch: React.Dispatch<CONFIGURATOR_ACTION>;
   code: string;
 }
 
-const initialData:GeneratorContextType ={
+const initialData:ConfiguratorContextType ={
   name: "",
   contextProps: [],
   providerProps: [],
@@ -24,19 +24,19 @@ const initialData:GeneratorContextType ={
 export const POSSIBLE_STR_PRIMITIVE_TYPES:StringPrimitiveType[] = ['string','number','boolean','bigint','symbol','null','undefined','any','unknown','never'];
 export const DISABLES_OTHERS_STR_TYPES = ['any','unknown','never'];
 
-const GeneratorContext = createContext(initialData);
+const ConfiguratorContext = createContext(initialData);
 
-export const GeneratorProvider = ({children}:PropsWithChildren) => {
-  const {dispatch,state} = useGeneratorReducer(initialData);
+export const ConfiguratorProvider = ({children}:PropsWithChildren) => {
+  const {dispatch,state} = useConfiguratorReducer(initialData);
   return (
-    <GeneratorContext.Provider value={{...state,dispatch}}>
+    <ConfiguratorContext.Provider value={{...state,dispatch}}>
       {children}
-    </GeneratorContext.Provider>
+    </ConfiguratorContext.Provider>
   )
 };
 
-export const useGenerator = () => {
-  const ctx = useContext(GeneratorContext);
+export const useConfigurator = () => {
+  const ctx = useContext(ConfiguratorContext);
   if (!ctx) {
     throw new Error('useGenerator must be used within a GeneratorProvider');
   }

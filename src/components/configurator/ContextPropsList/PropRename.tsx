@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import { useGenerator } from '@/providers/GeneratorProvider';
+import { useConfigurator } from '@/providers/ConfiguratorProvider';
 import React, { useEffect, useState } from 'react'
 interface Props {
   index: number;
@@ -9,7 +9,7 @@ interface Props {
 const PropRename = ({index}:Props) => {
   const [isValid, setIsValid] = useState<boolean>(true);
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
-  const {contextProps,dispatch} = useGenerator();
+  const {contextProps,dispatch} = useConfigurator();
   const prop = contextProps[index];
   const handleNameChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     dispatch({

@@ -1,9 +1,9 @@
 import { generateCode } from "@/lib/codeGenerator";
-import { PropType } from "@/providers/Generator";
-import { DISABLES_OTHERS_STR_TYPES, GeneratorContextType } from "@/providers/GeneratorProvider";
+import { PropType } from "@/providers/Configurator";
+import { ConfiguratorContextType } from "@/providers/ConfiguratorProvider";
 import { useReducer } from "react";
 
-export type ACTION = {
+export type CONFIGURATOR_ACTION = {
   set: "name",
   value: string
 }|
@@ -21,7 +21,7 @@ export type ACTION = {
 }
 
 
-const reducer = (state:TypeWithoutDispatch,action: ACTION):TypeWithoutDispatch => {
+const reducer = (state:TypeWithoutDispatch,action: CONFIGURATOR_ACTION):TypeWithoutDispatch => {
   //@ts-expect-error code is computed
   if(Object.keys(state).includes(action.set) && action.set !== "code"){
     const newState =  {...state,[action.set]:action.value};
@@ -36,9 +36,9 @@ const reducer = (state:TypeWithoutDispatch,action: ACTION):TypeWithoutDispatch =
   }
 }
 
-type TypeWithoutDispatch = Omit<GeneratorContextType,"dispatch">;
+type TypeWithoutDispatch = Omit<ConfiguratorContextType,"dispatch">;
 
-export const useGeneratorReducer = (initialState: TypeWithoutDispatch) => {
+export const useConfiguratorReducer = (initialState: TypeWithoutDispatch) => {
   const [state,dispatch] = useReducer(reducer,initialState);
   return {state,dispatch};
 };

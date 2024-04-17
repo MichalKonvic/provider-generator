@@ -1,13 +1,13 @@
 import { DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu"
-import { PropType } from "@/providers/Generator";
-import { useGenerator } from "@/providers/GeneratorProvider"
+import { PropType } from "@/providers/Configurator";
+import { useConfigurator } from "@/providers/ConfiguratorProvider"
 import CodeDialog from "./CodeDialog";
 
 interface Props{
   index: number
 }
 const TypeSelectCustom = ({index}:Props) => {
-  const {contextProps} = useGenerator();
+  const {contextProps} = useConfigurator();
   const prop = contextProps[index];
   const checked = prop.type === "custom";
   return (

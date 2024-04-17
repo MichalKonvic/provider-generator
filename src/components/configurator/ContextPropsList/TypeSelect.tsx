@@ -11,7 +11,7 @@ import TypeSelectPrimtiveGroup from "./TypeSelectPrimtiveGroup"
 import TypeSelectCustom from "./TypeSelectCustom"
 import { Binary, Code } from "lucide-react"
 import { useState } from "react"
-import { useGenerator } from "@/providers/GeneratorProvider"
+import { useConfigurator } from "@/providers/ConfiguratorProvider"
 import { cn } from "@/lib/utils"
 
 interface Props{
@@ -19,7 +19,7 @@ interface Props{
 }
 
 export function TypeSelect({index}:Props) {
-  const {contextProps} = useGenerator();
+  const {contextProps} = useConfigurator();
   const prop = contextProps[index];
   const [open, setOpen] = useState(false);
   const handleOpenChange = (open:boolean) => {

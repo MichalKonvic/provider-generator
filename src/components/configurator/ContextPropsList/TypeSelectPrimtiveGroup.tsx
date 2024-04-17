@@ -1,5 +1,5 @@
 import { DropdownMenuGroup } from "@/components/ui/dropdown-menu"
-import { POSSIBLE_STR_PRIMITIVE_TYPES } from "@/providers/GeneratorProvider";
+import { POSSIBLE_STR_PRIMITIVE_TYPES } from "@/providers/ConfiguratorProvider";
 import TypeSelectPrimitiveItem from "./TypeSelectPrimitiveItem";
 
 interface Props{

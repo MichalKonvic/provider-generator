@@ -1,8 +1,8 @@
-import { useGenerator } from "@/providers/GeneratorProvider"
+import { useConfigurator } from "@/providers/ConfiguratorProvider"
 import { Input } from "../ui/input";
 
 const NameInput = () => {
-  const {dispatch,name} = useGenerator();
+  const {dispatch,name} = useConfigurator();
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({set:"name",value:e.target.value});
   };
