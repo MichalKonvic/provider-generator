@@ -1,21 +1,18 @@
 import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import { useConfigurator } from '@/providers/ConfiguratorProvider';
+import { useProps } from '@/providers/PropsProvider';
 import React, { useEffect, useState } from 'react'
 interface Props {
   index: number;
 }
-const PropRename = ({index}:Props) => {
+const Rename = ({index}:Props) => {
   const [isValid, setIsValid] = useState<boolean>(true);
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
-  const {contextProps,dispatch} = useConfigurator();
-  const prop = contextProps[index];
+  const {props,setProps} = useProps();
+  const prop = props[index];
   const handleNameChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      set: "contextProps",
-      value: contextProps.map((p,i) => i === index ? {...p,name:e.target.value} : p)
-    })
+    setProps(props.map((p,i) => i === index ? {...p,name:e.target.value} : p));
   };
   useEffect(() => {
     // TODO in future add more validation rules
@@ -23,17 +20,17 @@ const PropRename = ({index}:Props) => {
       setIsValid(false);
       return;
     }
-    if(contextProps.filter(p => p.name === prop.name).length > 1){
+    if(props.filter(p => p.name === prop.name).length > 1){
       setIsValid(false);
       return;
     }
     setIsValid(true);
-  },[prop.name,contextProps])
+  },[prop.name,props])
   return (
     <TooltipProvider>
       <Tooltip open={showTooltip && !isValid}>
-        <TooltipTrigger>
-          <Input onBlur={() => setShowTooltip(false)} onFocus={() => setShowTooltip(true)} className={cn("h-12 w-44",!isValid && "border-red-500")} placeholder="Property name" value={prop.name} onChange={handleNameChange} />
+        <TooltipTrigger asChild>
+          <Input onBlur={() => setShowTooltip(false)} onFocus={() => setShowTooltip(true)} className={cn("h-12 min-w-44 w-full",!isValid && "border-red-500")} placeholder="Property name" value={prop.name} onChange={handleNameChange} />
         </TooltipTrigger>
         <TooltipContent align='start' className='bg-red-500/20 backdrop-blur-md border-red-500'>
           <p>
@@ -45,4 +42,4 @@ const PropRename = ({index}:Props) => {
   )
 }
 
-export default PropRename
+export default Rename

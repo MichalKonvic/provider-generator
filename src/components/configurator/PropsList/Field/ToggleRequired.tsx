@@ -1,6 +1,6 @@
 import { Toggle } from "@/components/ui/toggle";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useConfigurator } from "@/providers/ConfiguratorProvider";
+import { useProps } from "@/providers/PropsProvider";
 import { Asterisk } from "lucide-react";
 
 type Props = {
@@ -8,13 +8,10 @@ type Props = {
 }
 
 const ToggleRequired = ({index}:Props) => {
-  const {contextProps,dispatch} = useConfigurator();
-  const prop = contextProps[index];
+  const {props,setProps} = useProps();
+  const prop = props[index];
   const handleChange = () => {
-    dispatch({
-      set: "contextProps",
-      value: contextProps.map((p,i) => i === index ? {...p,required:!p.required} : p)
-    })
+    setProps(props.map((p,i) => i === index ? {...p,required:!p.required} : p))
   }
   
   return (

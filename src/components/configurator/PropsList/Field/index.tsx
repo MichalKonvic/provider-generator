@@ -1,24 +1,26 @@
-import PropRename from "./PropRename";
-import DeleteProp from "./DeleteProp";
+import Rename from "./Rename";
+import Delete from "./Delete";
 import ToggleRequired from "./ToggleRequired";
 import ArrayToggle from "./ArrayToggle";
 import { TypeSelect } from "./TypeSelect";
+import InitialData from "./InitialData";
 
 interface Props {
   index: number;
 }
 
-const ContextPropField = ({index}:Props) => {
+const PropField = ({index}:Props) => {
   
   return (
     <div className="h-12 w-full flex gap-2">
-      <PropRename index={index} />
+      <Rename index={index} />
       <TypeSelect index={index} />
       <ArrayToggle index={index} />
       <ToggleRequired index={index} />
-      <DeleteProp index={index} />
+      <InitialData index={index}/>
+      <Delete index={index} />
     </div>
   )
 }
 
-export default ContextPropField
+export default PropField

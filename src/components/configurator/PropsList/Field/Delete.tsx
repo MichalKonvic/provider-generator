@@ -1,18 +1,14 @@
 import { Button } from '@/components/ui/button';
-import { useConfigurator } from '@/providers/ConfiguratorProvider';
+import { useProps } from '@/providers/PropsProvider';
 import { Trash2 } from 'lucide-react';
-import React from 'react'
 
 type Props = {
   index: number
 }
-const DeleteProp = ({index}:Props) => {
-  const {contextProps,dispatch} = useConfigurator();
+const Delete = ({index}:Props) => {
+  const {props,setProps} = useProps();
   const handleDelete = () => {
-    dispatch({
-      set: "contextProps",
-      value: contextProps.filter((_,i) => i !== index)
-    })
+    setProps(props.filter((_,i) => i !== index));
   }
   return (
     <Button onClick={handleDelete} variant={"destructive"} className='w-12 h-12 flex items-center justify-center'>
@@ -21,4 +17,4 @@ const DeleteProp = ({index}:Props) => {
   )
 }
 
-export default DeleteProp
+export default Delete

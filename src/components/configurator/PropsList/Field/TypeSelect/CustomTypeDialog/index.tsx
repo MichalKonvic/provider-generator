@@ -1,20 +1,20 @@
-import CodeEditor from '@/components/CodeEditor'
+import CodeEditor from '@/components/ui/CodeEditor'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { PropType } from '@/providers/Configurator'
-import { useConfigurator } from '@/providers/ConfiguratorProvider'
-import { CircleHelp, Info } from 'lucide-react'
-import React, { PropsWithChildren, useEffect, useState } from 'react'
+import { CircleHelp } from 'lucide-react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 import ExampleTooltip from './ExampleTooltip'
+import { useProps } from '@/providers/PropsProvider'
 
 interface Props {
   index: number
 }
 
-const CodeDialog = ({index,children}:PropsWithChildren<Props>) => {
-  const {dispatch,contextProps} = useConfigurator();
-  const prop = contextProps[index];
+const CustomTypeDialog = ({index,children}:PropsWithChildren<Props>) => {
+  const {setProps,props} = useProps();
+  const prop = props[index];
   const [open, setOpen] = useState(false);
   const [code, setCode] = useState(prop.type === "custom" ? prop.value : "");
   useEffect(() => {
@@ -29,22 +29,20 @@ const CodeDialog = ({index,children}:PropsWithChildren<Props>) => {
   }
   const handleSave = () => {
     const newCode = code;
-    dispatch({
-      set: "contextProps",
-      value: contextProps.map((p,i) => {
-        if(i === index){
-          const newProp:PropType = {
-            ...p,
-            type: "custom",
-            isArray: false,
-            value: newCode
-          }
-          return newProp;
+    setProps(props.map((p,i) => {
+      if(i === index){
+        const newProp:PropType = {
+          ...p,
+          type: "custom",
+          isArray: false,
+          value: newCode
         }
-        return p
-        }
-    )})
-    setOpen(false);
+        return newProp;
+      }
+      return p
+      }
+  ));
+  setOpen(false);
   }
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -100,4 +98,4 @@ const CodeDialog = ({index,children}:PropsWithChildren<Props>) => {
   )
 }
 
-export default CodeDialog
+export default CustomTypeDialog

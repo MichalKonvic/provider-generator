@@ -1,11 +1,17 @@
-import ContextPropsList from "./ContextPropsList"
+import PropsList from "./PropsList"
 import NameInput from "./NameInput"
+import { PropsProvider } from "@/providers/PropsProvider"
 
 const Configurator = () => {
   return (
-    <div className='w-full px-4 pt-4 h-60 flex flex-col gap-8 sm:w-1/2'>
+    <div className='w-full px-4 pt-4 h-fit flex flex-col gap-8 sm:w-1/2'>
       <NameInput/>
-      <ContextPropsList/>
+      <PropsProvider type="context">
+        <PropsList/>
+      </PropsProvider>
+      <PropsProvider type="provider">
+        <PropsList/>
+      </PropsProvider>
     </div>
   )
 }

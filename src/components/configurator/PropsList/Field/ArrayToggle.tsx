@@ -1,6 +1,6 @@
 import { Toggle } from "@/components/ui/toggle";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useConfigurator } from "@/providers/ConfiguratorProvider";
+import { useProps } from "@/providers/PropsProvider";
 import { Brackets } from "lucide-react";
 
 type Props = {
@@ -8,14 +8,11 @@ type Props = {
 }
 
 const ArrayToggle = ({index}:Props) => {
-  const {contextProps,dispatch} = useConfigurator();
-  const prop = contextProps[index];
+  const {props, setProps} = useProps();
+  const prop = props[index];
   const disabled = prop.type === "custom";
   const handleChange = () => {
-    dispatch({
-      set: "contextProps",
-      value: contextProps.map((p,i) => i === index ? {...p,isArray:!p.isArray} : p)
-    })
+    setProps(props.map((p,i) => i === index ? {...p,isArray:!p.isArray} : p));
   }
   // Causes problem button cannot appear as a descendant of button (TooltipTrigger is a button)
   return (

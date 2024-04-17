@@ -1,5 +1,5 @@
 import { useScreenSize } from "@/hooks/useScreenSize";
-import CodeEditor from "./CodeEditor";
+import CodeEditor from "./ui/CodeEditor";
 
 const PreviewEditor = () => {
   const {width} = useScreenSize();
@@ -12,7 +12,7 @@ const PreviewEditor = () => {
         lineHeight: 28,
         automaticLayout: true
       }}
-      width={width < 640 ? "100%" : "50%"}
+      width={width < 640 ? width-16 : "50%"}
       className="min-h-60"
       height={768}
       value="import React from 'react';"
