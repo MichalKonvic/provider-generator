@@ -5,20 +5,22 @@ import { Label } from '@/components/ui/label'
 import { PropType } from '@/providers/Configurator'
 import { CircleHelp } from 'lucide-react'
 import { PropsWithChildren, useEffect, useState } from 'react'
-import ExampleCustomDataTooltip from './ExampleTooltip'
 import { useProps } from '@/providers/PropsProvider'
+import ExampleInitialDataTooltip from './Tooltip'
+
 
 interface Props {
   index: number
 }
 
-const CustomTypeDialog = ({index,children}:PropsWithChildren<Props>) => {
+const InitialDataDialog = ({index,children}:PropsWithChildren<Props>) => {
+  // TODO display in UI what type the property has
   const {setProps,props} = useProps();
   const prop = props[index];
   const [open, setOpen] = useState(false);
-  const [code, setCode] = useState(prop.type === "custom" ? prop.value : "");
+  const [code, setCode] = useState(prop.data);
   useEffect(() => {
-    setCode(prop.type === "custom" ? prop.value : "");
+    setCode(prop.data);
   },[prop])
   const handleOpenChange = (open:boolean) => {
     if(!open){
@@ -33,8 +35,7 @@ const CustomTypeDialog = ({index,children}:PropsWithChildren<Props>) => {
       if(i === index){
         const newProp:PropType = {
           ...p,
-          type: "custom",
-          value: newCode
+          data: newCode
         }
         return newProp;
       }
@@ -51,20 +52,20 @@ const CustomTypeDialog = ({index,children}:PropsWithChildren<Props>) => {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Create custom type
+            Enter value
           </DialogTitle>
           <DialogDescription>
-            Just enter the type definition. 
+            Just enter the initial value for property. 
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-3 py-4 w-full overflow-hidden">
           <div className='flex justify-between items-end'>
             <Label>
-              Your type
+              Your value
             </Label>
-            <ExampleCustomDataTooltip>
+            <ExampleInitialDataTooltip>
               <CircleHelp className="w-6 h-6 text-foreground/50 hover:text-foreground duration-100"/>
-            </ExampleCustomDataTooltip>
+            </ExampleInitialDataTooltip>
           </div>
           <div className='py-2 w-full border rounded-lg box-border focus-within:outline'>
             <CodeEditor
@@ -97,4 +98,4 @@ const CustomTypeDialog = ({index,children}:PropsWithChildren<Props>) => {
   )
 }
 
-export default CustomTypeDialog
+export default InitialDataDialog

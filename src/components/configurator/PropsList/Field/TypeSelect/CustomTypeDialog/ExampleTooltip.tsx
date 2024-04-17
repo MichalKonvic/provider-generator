@@ -1,7 +1,7 @@
 import { Label } from '@/components/ui/label'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { PropsWithChildren } from 'react'
-const ExampleTooltip = ({children}:PropsWithChildren) => {
+const ExampleCustomDataTooltip = ({children}:PropsWithChildren) => {
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>
@@ -26,4 +26,4 @@ const ExampleTooltip = ({children}:PropsWithChildren) => {
   )
 }
 
-export default ExampleTooltip
+export default ExampleCustomDataTooltip

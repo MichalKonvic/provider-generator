@@ -19,7 +19,7 @@ const ArrayToggle = ({index}:Props) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <Toggle pressed={prop.isArray} disabled={disabled} onPressedChange={handleChange} className="w-12 h-12" aria-label="Toggle array" variant={"outline"}>
+          <Toggle pressed={prop.isArray && !disabled} disabled={disabled} onPressedChange={handleChange} className="w-12 h-12" aria-label="Toggle array" variant={"outline"}>
             <Brackets className="w-4 h-4 " />
           </Toggle>
         </TooltipTrigger>
