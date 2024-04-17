@@ -7,7 +7,6 @@ export interface ConfiguratorContextType {
   name: string;
   contextProps:PropType[];
   providerProps:PropType[];
-  initialValue: unknown;
   dispatch: React.Dispatch<CONFIGURATOR_ACTION>;
   code: string;
 }
@@ -16,7 +15,6 @@ const initialData:ConfiguratorContextType ={
   name: "",
   contextProps: [],
   providerProps: [],
-  initialValue: null,
   code: "",
   dispatch: () => {}
 };

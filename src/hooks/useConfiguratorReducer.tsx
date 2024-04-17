@@ -12,10 +12,6 @@ export type CONFIGURATOR_ACTION = {
   value: PropType[]
 }|
 {
-  set: "initialValue",
-  value: unknown
-}|
-{
   set: "providerProps",
   value: PropType[]
 }
@@ -26,10 +22,11 @@ const reducer = (state:TypeWithoutDispatch,action: CONFIGURATOR_ACTION):TypeWith
   if(Object.keys(state).includes(action.set) && action.set !== "code"){
     const newState =  {...state,[action.set]:action.value};
     if(newState.name === ""){
+      newState.code = "";
       return newState;
     }
     // Compute code
-    newState.code = generateCode(newState.name,newState.contextProps,newState.providerProps,newState.initialValue);
+    newState.code = generateCode(newState.name,newState.contextProps,newState.providerProps);
     return newState;
   }else{
     throw new Error("Invalid action type");
