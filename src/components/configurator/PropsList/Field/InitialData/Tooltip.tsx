@@ -1,15 +1,22 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { cn } from '@/lib/utils'
 import { PropsWithChildren } from 'react'
 
-const InitialDataTooltip = ({children}:PropsWithChildren) => {
+interface Props {
+  isInvalid:boolean
+}
+
+const InitialDataTooltip = ({children,isInvalid}:PropsWithChildren<Props>) => {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
+        <TooltipTrigger>
             {children}
         </TooltipTrigger>
-        <TooltipContent>
-          <p>Initial data</p>
+        <TooltipContent className={cn(isInvalid && 'bg-red-500/20 backdrop-blur-md border-red-500')}>
+          <p>
+            Initial data {isInvalid ? "is required" : ""}
+          </p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

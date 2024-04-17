@@ -5,12 +5,11 @@ import PropField from './Field';
 import { Separator } from '@/components/ui/separator';
 import { useProps } from '@/providers/PropsProvider';
 import List from '@/components/ui/list';
-import { useId } from 'react';
 
 const PropsList = () => {
   const {props,setProps, type} = useProps();
   const handleAddProp = () => {
-    setProps([...props,{name:"",isArray: false, required: true,type:"primitive",value:[]}])
+    setProps([...props,{name:"",isArray: false, required: true,type:"primitive",data:"",value:[]}])
   };
   return (
     <div className='flex flex-col gap-1.5 min-h-32'>
@@ -19,7 +18,7 @@ const PropsList = () => {
       </Label>
       <List>
         {props.map((_,index) => {
-          const key = crypto.randomUUID();
+          const key = index;
           if(index == props.length - 1){
             return (
               <div key={key}>
