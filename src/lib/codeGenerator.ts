@@ -2,7 +2,7 @@ import { PropType, StringPrimitiveType } from "@/providers/Configurator";
 
 
 const typesArrayToString = (types:StringPrimitiveType[]):string => {
-  return types.map(type => `"${type}"`).join(" | ");
+  return types.map(type => `${type}`).join(" | ");
 };
 
 const primitiveArrayToString = (prop:StringPrimitiveType[]):string => {
@@ -30,6 +30,9 @@ const propToString = (prop:PropType):string => {
 }
 
 const returnInitialValueAsString = (prop:PropType):string => {
+  if(!prop.required && !prop.data){
+    return "";
+  }
   const hasEnd = prop.data.endsWith(";") || prop.data.endsWith(",");
   const identifier = prop.required ? ":" : "?:";
   return prop.name + identifier + prop.data + (hasEnd ? "" : ",")
@@ -40,11 +43,19 @@ const destructureProviderProp = (prop:PropType):string => {
   return `${prop.name}${identifier}${prop.data}`;
 };
 
+
+const removeUnnecessaryLineBreaks = (str:string):string => {
+  return str.split("\n").filter(line => line.trim() !== "").join("\n");
+};
+
+
 export const generateCode = (name: string, contextProps: PropType[], providerProps: PropType[]):string => {
-  const strInitialContextValue = contextProps.map(prop => returnInitialValueAsString(prop)).join("\n  ");
-  const strProviderProps = providerProps.map(prop => destructureProviderProp(prop)).join(",\n  ");
-  const strProviderPropsTypes = providerProps.map(prop => propToString(prop)).join("\n  ");;
-  const strContextPropsTypes = contextProps.map(prop => propToString(prop)).join("\n  ");
+  const strInitialContextValue = removeUnnecessaryLineBreaks(contextProps.map(prop => returnInitialValueAsString(prop)).join("\n  "));
+  const strProviderProps = removeUnnecessaryLineBreaks(providerProps.map(prop => destructureProviderProp(prop)).join(",\n  "));
+  const strProviderPropsTypes = removeUnnecessaryLineBreaks(providerProps.map(prop => propToString(prop)).join("\n  "));
+  const strContextPropsTypes = removeUnnecessaryLineBreaks(contextProps.map(prop => propToString(prop)).join("\n  "));
+
+
   return `import { createContext, PropsWithChildren, useContext } from "react";
 
 interface ProviderType{
@@ -55,11 +66,11 @@ interface ContextType {
   ${strContextPropsTypes}
 }
 
-const initialContextData = {
+const initialContextData:ContextType = {
   ${strInitialContextValue}
 };
 
-const ${name}Context = createContext(initialContextData);
+const ${name}Context = createContext<ContextType>(initialContextData);
 
 
 export const ${name}Provider = ({
