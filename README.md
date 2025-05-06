@@ -1,2 +1,2 @@
 # provider-generator
-GUI for creating react context providers
+React app for creating react context providers
