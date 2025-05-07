@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://tvoje-domena.cz/sitemap.xml
+Sitemap: https://genprovider.konvic.dev/sitemap.xml
