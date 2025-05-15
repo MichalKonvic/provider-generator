@@ -12,7 +12,7 @@ const Navigation = () => {
         <p className="text-xl mx-1.5">/</p>
         <div className="flex items-center gap-1.5">
           <ReactLogo className="w-4 h-4" />
-          <p className="">Provider Generator</p>
+          <p className="">Context Provider Generator</p>
         </div>
       </div>
       <div className="flex items-center gap-2">
